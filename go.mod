@@ -1,4 +1,4 @@
-module github.com/lanthora/libGoReSym
+module github.com/deepflowys/libGoReSym
 
 go 1.18
 

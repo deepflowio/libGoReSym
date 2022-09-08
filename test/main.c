@@ -8,6 +8,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <unistd.h>
+#include <sys/resource.h>
 #include "../libGoReSym.h"
 
 int main()
@@ -16,25 +17,13 @@ int main()
 	char *func_name = "runtime.casgstatus";
 	char *itab_name = "go.itab.syscall.Errno,error";
 
-	GoString fileName = {};
-	GoString funcName = {};
-	GoString itabName = {};
-	struct FunctionAddress_return funcRet = {};
-	GoUintptr itabRet = 0;
+	struct function_address_return func = {};
+	GoUintptr itab = 0;
 
-	fileName.p = file_name;
-	fileName.n = strlen(file_name);
+	func = function_address(file_name, func_name);
+	itab = itab_address(file_name, itab_name);
 
-	funcName.p = func_name;
-	funcName.n = strlen(func_name);
-
-	itabName.p = itab_name;
-	itabName.n = strlen(itab_name);
-
-	funcRet = FunctionAddress(fileName, funcName);
-	itabRet = ITabAddress(fileName, itabName);
-
-	printf("func: addr=[%p], size=[%d]\n", funcRet.r0, funcRet.r1);
-	printf("itab: addr=[%p]\n", itabRet);
+	printf("func: addr=[%p], size=[%d]\n", func.r0, func.r1);
+	printf("itab: addr=[%p]\n", itab);
 	return 0;
 }

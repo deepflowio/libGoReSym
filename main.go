@@ -1,22 +1,26 @@
 package main
 
+import "C"
 import (
-	"C"
 	"bytes"
 	"debug/buildinfo"
 	"io/ioutil"
 	"strings"
 
+	"fmt"
+
 	"github.com/mandiant/GoReSym/objfile"
 )
-import "fmt"
 
 func main() {
 
 }
 
-//export FunctionAddress
-func FunctionAddress(fileName string, funcName string) (addr uintptr, size int) {
+//export function_address
+func function_address(file_name *C.char, func_name *C.char) (addr uintptr, size int) {
+	fileName := C.GoString(file_name)
+	funcName := C.GoString(func_name)
+
 	versionOverride := ""
 
 	file, err := objfile.Open(fileName)
@@ -45,8 +49,11 @@ func FunctionAddress(fileName string, funcName string) (addr uintptr, size int) 
 	return
 }
 
-//export ITabAddress
-func ITabAddress(fileName string, iTabName string) (addr uintptr) {
+//export itab_address
+func itab_address(file_name *C.char, itab_name *C.char) (addr uintptr) {
+	fileName := C.GoString(file_name)
+	iTabName := C.GoString(itab_name)
+
 	runtimeVersion := ""
 
 	file, err := objfile.Open(fileName)

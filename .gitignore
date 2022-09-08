@@ -1,2 +1,5 @@
 libGoReSym.h
 libGoReSym.so
+libGoReSym.a
+a.out
+.vscode/

@@ -13,9 +13,9 @@
 
 int main()
 {
-	char *file_name = "GoReSym";
+	char *file_name = "GoELF";
 	char *func_name = "runtime.casgstatus";
-	char *itab_name = "go.itab.syscall.Errno,error";
+	char *itab_name = "go.itab.*net.TCPConn,net.Conn";
 
 	struct function_address_return func = {};
 	GoUintptr itab = 0;
